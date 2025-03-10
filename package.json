@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.12.4",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^10.0.0",
     "inngest": "^3.32.3",
     "mongoose": "^8.12.1",
-    "next": "15.1.6",
+    "next": "^15.2.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.1",
