@@ -1,4 +1,4 @@
-import logo from "./pelzlogo1.jpg";
+import logo from "./pelzlogo2.jpg";
 import search_icon from "./search_icon.svg";
 import user_icon from "./user_icon.svg";
 import cart_icon from "./cart_icon.svg";
