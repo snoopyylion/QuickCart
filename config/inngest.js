@@ -6,9 +6,9 @@ import User from "@/models/User";
 export const inngest = new Inngest({ id: "pelz-next" });
 
 // Inngest function to save userdata to database
-export const syncUserCreation = inngest.createFunction({
-    id: 'sync-user-from-clerk',
-},{ event: 'clerk/user.created'},
+export const syncUserCreation = inngest.createFunction(
+    { id: 'sync-user-from-clerk'},
+    { event: 'clerk/user.created'},
 async ({event}) => {
     const { id, first_name, last_name, email_addresses, image_url } = event.data;
     const userData = {
@@ -16,7 +16,11 @@ async ({event}) => {
         email: email_addresses[0].email_address,
         name: first_name + " " + last_name,
         imageUrl: image_url
-    }
+    };
+    // Move database imports inside the function
+    const connectDB = (await import("./db")).default;
+    const User = (await import("@/models/User")).default;
+
     await connectDB();
     await User.create(userData);
 }
@@ -37,6 +41,11 @@ export const syncUserUpdate = inngest.createFunction(
             name: first_name + " " + last_name,
             imageUrl: image_url
         }
+
+        // Move database imports inside the function
+        const connectDB = (await import("./db")).default;
+        const User = (await import("@/models/User")).default;
+
         await connectDB();
         await User.findByIdAndUpdate( id , userData);
     }
@@ -50,9 +59,12 @@ export const syncUserDelete = inngest.createFunction(
     },
     { event: 'clerk/user.deleted' },
     async ({ event }) => {
-        
+
         const { id } = event.data;
 
+        // Move database imports inside the function
+        const connectDB = (await import("./db")).default;
+        const User = (await import("@/models/User")).default;
         await connectDB();
         await User.findByIdAndDelete(id);
     }
