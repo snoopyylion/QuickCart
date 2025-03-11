@@ -3,6 +3,9 @@ const nextConfig = {
     eslint:{
         ignoreDuringBuilds:true,
       },
+      experimental: {
+        styledComponents: false, // disables styled-components instead
+      },
     images: {
         remotePatterns: [
             {

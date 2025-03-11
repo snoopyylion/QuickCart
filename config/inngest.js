@@ -41,11 +41,6 @@ export const syncUserUpdate = inngest.createFunction(
             name: first_name + " " + last_name,
             imageUrl: image_url
         }
-
-        // Move database imports inside the function
-        const connectDB = (await import("./db")).default;
-        const User = (await import("@/models/User")).default;
-
         await connectDB();
         await User.findByIdAndUpdate( id , userData);
     }
@@ -62,9 +57,6 @@ export const syncUserDelete = inngest.createFunction(
 
         const { id } = event.data;
 
-        // Move database imports inside the function
-        const connectDB = (await import("./db")).default;
-        const User = (await import("@/models/User")).default;
         await connectDB();
         await User.findByIdAndDelete(id);
     }
